@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, Willow Garage, Inc.
+ * Copyright (c) 2011, Willow Garage, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,29 +26,44 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef PROPERTY_TREE_DELEGATE_H
-#define PROPERTY_TREE_DELEGATE_H
 
-#include <QStyledItemDelegate>
+#include <QMetaObject>
+#include <QMetaProperty>
+
+#include <QPainter>
+
+#include <rviz/load_resource.h>
+#include <rviz/properties/button_editor.h>
+
+static constexpr auto icon_name = "package://rviz/icons/reset.svg";
 
 namespace rviz
 {
-class PropertyTreeDelegate : public QStyledItemDelegate
+ButtonEditor::ButtonEditor(QWidget* parent)
+  : QPushButton(parent)
 {
-  Q_OBJECT
-public:
-  PropertyTreeDelegate(QObject* parent_object = nullptr);
+}
 
-  void
-  paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+void ButtonEditor::paintEvent(QPaintEvent* event)
+{
+//  QPainter painter(this);
+//  painter.setPen(Qt::black);
+//  paintButton(&painter, rect());
+}
 
-  QWidget* createEditor(QWidget* parent,
-                        const QStyleOptionViewItem& option,
-                        const QModelIndex& index) const override;
+void ButtonEditor::paintButton(QPainter* painter, const QRect& rect)
+{
+  painter->save();
 
-  //TODO: implement editorEvent?
-};
+  int size = rect.height();
+
+  QStyleOptionButton button;
+  button.state = QStyle::State_Active;
+  button.rect = QRect(rect.left(), rect.top(), size, size);
+  button.icon = loadPixmap(icon_name);
+  QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+
+  painter->restore();
+}
 
 } // end namespace rviz
-
-#endif // PROPERTY_TREE_DELEGATE_H

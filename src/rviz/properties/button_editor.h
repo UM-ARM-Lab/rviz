@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, Willow Garage, Inc.
+ * Copyright (c) 2011, Willow Garage, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,29 +26,33 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef PROPERTY_TREE_DELEGATE_H
-#define PROPERTY_TREE_DELEGATE_H
+#ifndef RVIZ_BUTTON_EDITOR_H
+#define RVIZ_BUTTON_EDITOR_H
 
-#include <QStyledItemDelegate>
+#include <iostream>
+#include <QPushButton>
+#include <QStyleOptionButton>
+#include <QStyle>
+#include <QApplication>
 
 namespace rviz
 {
-class PropertyTreeDelegate : public QStyledItemDelegate
+
+class ButtonEditor : public QPushButton
 {
   Q_OBJECT
 public:
-  PropertyTreeDelegate(QObject* parent_object = nullptr);
+  ButtonEditor(QWidget* parent = nullptr);
 
-  void
-  paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+  /** Static function to paint.  Paints it in the
+   * left end of rect, size rect.height() by rect.height(). */
+  static void paintButton(QPainter* painter, const QRect& rect);
 
-  QWidget* createEditor(QWidget* parent,
-                        const QStyleOptionViewItem& option,
-                        const QModelIndex& index) const override;
-
-  //TODO: implement editorEvent?
+protected:
+  /** Call parent version then paint. */
+  void paintEvent(QPaintEvent* event) override;
 };
 
 } // end namespace rviz
 
-#endif // PROPERTY_TREE_DELEGATE_H
+#endif // RVIZ_BUTTON_EDITOR_H

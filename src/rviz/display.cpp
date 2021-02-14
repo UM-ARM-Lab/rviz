@@ -71,6 +71,8 @@ Display::Display()
   connect(this, SIGNAL(changed()), this, SLOT(onEnableChanged()));
 
   setDisableChildrenIfFalse(true);
+
+  reset_property_ = new ButtonProperty("Reset", "clear/reset", this, SLOT(onResetClicked()));
 }
 
 Display::~Display()
@@ -415,6 +417,14 @@ void Display::setName(const QString& name)
   else if (associated_widget_)
   {
     associated_widget_->setWindowTitle(name);
+  }
+}
+
+void Display::onResetClicked()
+{
+  if (isEnabled())
+  {
+    reset();
   }
 }
 

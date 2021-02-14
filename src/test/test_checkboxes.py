@@ -10,9 +10,8 @@ import rosgraph
 import rospy
 import tf
 import tf2_ros
-from geometry_msgs.msg import Point32, AccelStamped, Point
+from geometry_msgs.msg import AccelStamped, Point
 from geometry_msgs.msg import PointStamped
-from geometry_msgs.msg import PolygonStamped
 from geometry_msgs.msg import Pose
 from geometry_msgs.msg import PoseArray
 from geometry_msgs.msg import PoseStamped
@@ -97,7 +96,7 @@ def publish_effort():
 
     t = 0
     msg = JointState()
-    msg.name = ['head_pan_joint']
+    msg.name = ['base_link']
     N = len(msg.name)
     msg.position = [0. for _ in range(N)]
 
@@ -320,12 +319,14 @@ def publish_range():
 
     publisher.publish(r)
 
+
 def publish_robot_model():
     topic = 'joint_states'
     publisher = get_connected_publisher(topic, JointState)
 
     j = JointState()
     publisher.publish(j)
+
 
 def pubish_polygon():
     br = tf.TransformBroadcaster()
@@ -463,6 +464,7 @@ def publish_marker_array():
 
     marker_pub.publish(msg)
 
+
 def publish_marker():
     marker_pub = get_connected_publisher('marker_test', Marker)
 
@@ -534,7 +536,6 @@ def publish_wrench():
     p.wrench.torque.z = 0
 
     publisher.publish(p)
-
 
 
 def main():

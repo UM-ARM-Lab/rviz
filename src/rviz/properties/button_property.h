@@ -26,29 +26,49 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef PROPERTY_TREE_DELEGATE_H
-#define PROPERTY_TREE_DELEGATE_H
+#ifndef BUTTON_PROPERTY_H
+#define BUTTON_PROPERTY_H
 
-#include <QStyledItemDelegate>
+#include <QAbstractItemModel>
+#include <QEvent>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPoint>
+#include <QPushButton>
+#include <QStyle>
+
+#include <rviz/properties/property.h>
+#include <rviz/properties/property_tree_model.h>
+#include <rviz/rviz_export.h>
 
 namespace rviz
 {
-class PropertyTreeDelegate : public QStyledItemDelegate
+/** @brief Property specialized to provide getter for buttons? */
+class RVIZ_EXPORT ButtonProperty : public Property
 {
   Q_OBJECT
 public:
-  PropertyTreeDelegate(QObject* parent_object = nullptr);
+  ButtonProperty(const QString& name = QString(),
+                 const QString& description = QString(),
+                 Property* parent = nullptr,
+                 const char* changed_slot = nullptr,
+                 QObject* receiver = nullptr);
 
-  void
-  paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+  bool setValue(const QVariant& new_value) override;
 
-  QWidget* createEditor(QWidget* parent,
-                        const QStyleOptionViewItem& option,
-                        const QModelIndex& index) const override;
+  bool paint(QPainter* painter, const QStyleOptionViewItem& option) const override;
 
-  //TODO: implement editorEvent?
+  QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option) override;
+
+  bool editorEvent(QEvent* event,
+                   QAbstractItemModel* model,
+                   const QStyleOptionViewItem& option,
+                   const QModelIndex& index);
+private:
+  QPoint mouse_point_;
+  int mouse_event_type_;
 };
 
 } // end namespace rviz
 
-#endif // PROPERTY_TREE_DELEGATE_H
+#endif // BUTTON_PROPERTY_H

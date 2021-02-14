@@ -69,6 +69,8 @@ add_library(${PROJECT_NAME}
   panel_factory.cpp
   preferences_dialog.cpp
   properties/bool_property.cpp
+  properties/button_property.cpp
+  properties/button_editor.cpp
   properties/color_editor.cpp
   properties/color_property.cpp
   properties/combo_box.cpp

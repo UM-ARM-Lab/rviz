@@ -37,6 +37,7 @@
 
 #include <rviz/properties/status_property.h>
 #include <rviz/properties/bool_property.h>
+#include <rviz/properties/button_property.h>
 #include <rviz/rviz_export.h>
 
 #include <QIcon>
@@ -313,6 +314,7 @@ protected:
 
 public Q_SLOTS:
   virtual void onEnableChanged();
+  void onResetClicked();
 
 private Q_SLOTS:
   void setStatusInternal(int level, const QString& name, const QString& text);
@@ -329,6 +331,7 @@ private:
   QWidget* associated_widget_;
   PanelDockWidget* associated_widget_panel_;
   bool associated_widget_visible_;
+  ButtonProperty* reset_property_;
 };
 
 } // end namespace rviz
