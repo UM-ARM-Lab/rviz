@@ -267,8 +267,6 @@ void DepthCloudDisplay::onDisable()
   unsubscribe();
 
   ml_depth_data_->reset();
-
-  clear();
 }
 
 void DepthCloudDisplay::subscribe()

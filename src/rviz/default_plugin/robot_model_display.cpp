@@ -206,7 +206,6 @@ void RobotModelDisplay::onEnable()
 void RobotModelDisplay::onDisable()
 {
   robot_->setVisible(false);
-  clear();
 }
 
 void RobotModelDisplay::update(float wall_dt, float /*ros_dt*/)

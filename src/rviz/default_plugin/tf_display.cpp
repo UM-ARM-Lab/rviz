@@ -274,7 +274,6 @@ void TFDisplay::onEnable()
 void TFDisplay::onDisable()
 {
   root_node_->setVisible(false);
-  clear();
 }
 
 void TFDisplay::updateShowNames()

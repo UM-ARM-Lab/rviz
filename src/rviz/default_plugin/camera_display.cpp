@@ -235,7 +235,6 @@ void CameraDisplay::onDisable()
 {
   render_panel_->getRenderWindow()->setActive(false);
   unsubscribe();
-  reset();
 }
 
 void CameraDisplay::subscribe()

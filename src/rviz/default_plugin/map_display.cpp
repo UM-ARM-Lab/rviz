@@ -422,7 +422,6 @@ void MapDisplay::onEnable()
 void MapDisplay::onDisable()
 {
   unsubscribe();
-  clear();
 }
 
 void MapDisplay::subscribe()

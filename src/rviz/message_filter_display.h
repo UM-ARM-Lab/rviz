@@ -190,7 +190,6 @@ protected:
   void onDisable() override
   {
     unsubscribe();
-    reset();
   }
 
   void fixedFrameChanged() override

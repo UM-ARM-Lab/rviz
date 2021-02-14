@@ -152,7 +152,6 @@ void ImageDisplay::onDisable()
 {
   render_panel_->getRenderWindow()->setActive(false);
   ImageDisplayBase::unsubscribe();
-  reset();
 }
 
 void ImageDisplay::updateNormalizeOptions()

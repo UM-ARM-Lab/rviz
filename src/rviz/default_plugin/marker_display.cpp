@@ -125,7 +125,6 @@ void MarkerDisplay::onEnable()
 void MarkerDisplay::onDisable()
 {
   unsubscribe();
-  reset();
 }
 
 void MarkerDisplay::updateQueueSize()
